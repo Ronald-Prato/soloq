@@ -85,7 +85,7 @@ io.on('connection', (socket) => {
     if (!currentRoom.map(userInRoom => userInRoom.hasAccepted).includes(false)) {
       createNewGame(currentRoom)
       .then((res) => {
-        console.log(res)
+        console.log("New game created")
         io.in(roomId).emit('match-accepted', currentRoom)
         delete rooms[roomId]
 
