@@ -23,7 +23,7 @@ export const Register = () => {
     }
 
     const newId = Math.random().toString(16).substr(2, 15)
-    const rank = Math.floor(Math.random() * 100)
+    const rank = Math.floor(Math.random() * 50)
     const newUser: User = {
       id: newId,
       name: userName,
