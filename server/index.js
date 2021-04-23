@@ -116,9 +116,10 @@ io.on('connection', (socket) => {
 })
 
 setInterval(() => {
-  rankChecks.forEach(singleRange => {
-    checkIfMatch(singleRange.min, singleRange.max)    
-  })
+  // rankChecks.forEach(singleRange => {
+  //   checkIfMatch(singleRange.min, singleRange.max)    
+  // })
+  checkIfMatch(0, 1000)
 }, updateInterval)
 
 const checkIfMatch = (min, max) => {
