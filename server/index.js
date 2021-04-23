@@ -85,7 +85,7 @@ io.on('connection', (socket) => {
     if (!currentRoom.map(userInRoom => userInRoom.hasAccepted).includes(false)) {
       createNewGame(currentRoom)
       .then((res) => {
-        console.log(res)
+        console.log("New game created")
         io.in(roomId).emit('match-accepted', currentRoom)
         delete rooms[roomId]
 
@@ -116,10 +116,9 @@ io.on('connection', (socket) => {
 })
 
 setInterval(() => {
-  // rankChecks.forEach(singleRange => {
-  //   checkIfMatch(singleRange.min, singleRange.max)    
-  // })
-  checkIfMatch(0, 1000)
+  rankChecks.forEach(singleRange => {
+    checkIfMatch(singleRange.min, singleRange.max)    
+  })
 }, updateInterval)
 
 const checkIfMatch = (min, max) => {
@@ -144,9 +143,11 @@ const checkIfMatch = (min, max) => {
 
 app.post('/get-in-queue', (req, res) => {
   const arrivedUser = req.body.userId
+  const newRank = parseInt(req.body.newRank)
+  
   if (arrivedUser) {
     const userToQueue = users.filter(singleUser => singleUser.id === arrivedUser)[0]
-    queue.push(userToQueue)
+    queue.push({...userToQueue, rank: newRank})
     res.send(`User ${arrivedUser} added to queue`)
   } else {
     return res.status(400).json({description: 'Bad request. need ?user param', name: 'BadRequest'})
