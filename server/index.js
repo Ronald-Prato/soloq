@@ -144,8 +144,8 @@ const checkIfMatch = (min, max) => {
 
 app.post('/get-in-queue', (req, res) => {
   const arrivedUser = req.body.userId
-  const newRank = parseInt(req.body.newRank)
-  console.log("new rank: ", newRank)
+  const newRank = parseInt(req.body.userRank)
+  console.log("new rank: ", userRank)
   if (arrivedUser) {
     const userToQueue = users.filter(singleUser => singleUser.id === arrivedUser)[0]
     queue.push({...userToQueue, rank: newRank})
