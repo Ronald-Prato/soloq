@@ -154,6 +154,10 @@ app.post('/get-in-queue', (req, res) => {
   }
 })
 
+app.get('/', (req, res) => {
+  res.send('I am alive')
+})
+
 server.listen(port, () => {
   console.log("Listening at *: " + port)
 })
