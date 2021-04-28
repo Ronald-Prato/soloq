@@ -11,21 +11,20 @@ const io = require('socket.io')(server, {
   }
 })
 const cors = require('cors')
-const bp = require('body-parser')
 const generateIntervalObject = require('./utils')
 
 const corsOptions = {
   origin: [
-    'http://localhost:3000', 
+    'http://localhost:3000',
     'http://localhost:3001',
-    'http://192.168.0.3:3000', 
+    'http://192.168.0.3:3000',
     'https://socket-learn.vercel.app'
   ]
 }
 
 app.use(cors(corsOptions))
-app.use(bp.json())
-app.use(bp.urlencoded({ extended: true }))
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 const port = process.env.PORT
 const minRoomSize = parseInt(process.env.MIN_ROOM_SIZE)
@@ -46,8 +45,8 @@ io.on('connection', (socket) => {
   console.log("New user connected!")
 
   socket.on('new-user', (newUser) => {
-    const userNames = users.map(singleUser => singleUser.nickname)    
-    
+    const userNames = users.map(singleUser => singleUser.nickname)
+
     if (!userNames.includes(newUser.nickname)) {
       socket.username = newUser.nickname
       users.push(newUser)
@@ -73,7 +72,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('accept-match', (userId) => {
-    const roomId = findRoomId(userId) 
+    const roomId = findRoomId(userId)
     const userIndex = findUserIndexInRoom(userId, roomId)
 
     socket.join(roomId)
@@ -117,7 +116,7 @@ io.on('connection', (socket) => {
 
 setInterval(() => {
   // rankChecks.forEach(singleRange => {
-  //   checkIfMatch(singleRange.min, singleRange.max)    
+  //   checkIfMatch(singleRange.min, singleRange.max)
   // })
   checkIfMatch(0, 1000)
 }, updateInterval)
@@ -222,7 +221,7 @@ const errorMatchActions = (roomId, user, currentRoom, rejectionType) => {
       })
     }
   }
-  
+
   actionsHashMap[rejectionType]()
   // Then we can delete the provisional room and delete the user who declined the match from the queue
   delete rooms[roomId]

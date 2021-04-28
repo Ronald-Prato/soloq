@@ -18,8 +18,5 @@
     "nodemon": "^2.0.7",
     "request": "^2.88.2",
     "socket.io": "^4.0.1"
-  },
-  "devDependencies": {
-    "body-parser": "^1.19.0"
   }
 }
